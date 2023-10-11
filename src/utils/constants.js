@@ -1,0 +1,1 @@
+export const fetchResUrl = "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.385044&lng=78.486671";
