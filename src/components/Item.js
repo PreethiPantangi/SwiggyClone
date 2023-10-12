@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { cdnUrl } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, clearCart, removeItem, setResDetails } from "../utils/cartSlice";
@@ -12,9 +12,25 @@ const Item = ({item, isCart, resDetails}) => {
     const [itemToAdd, setItemToAdd] = useState({});
 
     const storeResDetails = useSelector((store) => store.cart.resDetails);
+    const cartItems = useSelector((store) => store.cart.items);
+
+    useEffect(() => {
+      let itemsCount = 0;
+      cartItems.forEach((cartItem) => {
+          if(cartItem.id === item.id) {
+            itemsCount += 1;
+          }
+      });
+      setSelectedCount(itemsCount);
+    }, [cartItems, item.id]);
 
     const handleAddItem = (itemInfo) => {
-      if(storeResDetails.name) {
+      debugger;
+      if(Object.keys(storeResDetails).length === 0) {
+        setSelectedCount(selectedCount + 1);
+        dispatch(setResDetails(resDetails));
+        dispatch(addItem(itemInfo));
+      } else {
         if(storeResDetails?.name && storeResDetails?.name === resDetails.name) {
           setSelectedCount(selectedCount + 1);
           dispatch(addItem(itemInfo));
@@ -22,10 +38,6 @@ const Item = ({item, isCart, resDetails}) => {
           setIsResSame(false);
           setItemToAdd(itemInfo);
         }
-      } else {
-        setSelectedCount(selectedCount + 1);
-        dispatch(setResDetails(resDetails));
-        dispatch(addItem(itemInfo));
       }
     }
 
@@ -64,7 +76,6 @@ const Item = ({item, isCart, resDetails}) => {
       <div className="flex justify-between m-3 mb-3" key={item.id}>
         <div className="w-10/12 h-32 mr-3 mb-6">
           <div className="flex">
-            <div className={item.isVeg === 1 ? "green" : "red"}></div>
             {item.isBestseller && item.ribbon && (
               <div className="flex">
                 <div className="five-pointed-star"></div>
@@ -74,8 +85,15 @@ const Item = ({item, isCart, resDetails}) => {
               </div>
             )}
           </div>
-          <div className="mr-1 mt-3 font-bold text-[#3e4152] break-all">
-            {item.name}
+          <div className="flex">
+            <img 
+                src={item.isVeg ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Veg_symbol.svg/1200px-Veg_symbol.svg.png' : 'https://m.media-amazon.com/images/I/31KiTfpLyFL.jpg'}
+                alt='veg'
+                className='w-4 h-4 mt-4'
+            />
+            <div className="mr-1 mt-3 font-bold text-[#3e4152] break-all ml-2">
+              {item.name}
+            </div>
           </div>
           <div className="mr-1 mt-3 font-bold text-[#3e4152] break-all">
             &#8377;{item.price ? item.price / 100 : item.defaultPrice / 100}

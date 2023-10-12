@@ -14,7 +14,10 @@ const Header = () => {
                 <div>
                 <ul className="flex space-x-5 mt-4">
                     <Link to='/cart'>
-                        <li className="text-[#3D4152] font-semibold hover:text-orange-500 cursor-pointer flex">Cart {cartItems.length}</li>
+                        <li className="text-[#3D4152] font-semibold hover:text-orange-500 cursor-pointer flex">
+                            <div>Cart</div>
+                            {cartItems.length > 0 && <div className="ml-1 -mt-1 bg-green-600 hover:bg-orange-500 text-white p-1 h-7 mb-1">{cartItems.length}</div>}
+                        </li>
                     </Link>
                     <li className="text-[#3D4152] space-x-4 font-semibold hover:text-orange-500 cursor-pointer">About</li>
                 </ul>
