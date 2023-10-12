@@ -1,7 +1,9 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Carousel from './Carousel';
 import { Link } from 'react-router-dom';
 import RestaurantCard, {withOfferText} from './RestaurantCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateRestaurants } from '../utils/restaurantsSlice';
 
 
 const Section = ({card}) => {
@@ -9,6 +11,7 @@ const Section = ({card}) => {
     const RestaurantCardWithOffer = withOfferText(RestaurantCard);
 
     const containerRef = useRef(null);
+    const scrollDivRef = useRef(null);
 
     const prev = () => {
         containerRef.current.scrollLeft -= 500; 
@@ -17,6 +20,70 @@ const Section = ({card}) => {
     const next = () => {
         containerRef.current.scrollLeft += 500;
     };
+
+    const allRestaurants = useSelector((store) => store.restaurants.restaurants);
+
+    let dispatch = useDispatch();
+
+    useEffect(() => {
+        if(card[0] === 'restaurants_list') {
+            let res = card[1].data?.gridElements?.infoWithStyle?.restaurants;
+            dispatch(updateRestaurants(res));
+            const fetchRes = async () => {
+                const data = await fetch('https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/update', {
+                    method: "POST", 
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        "lat": 12.9715987,
+                        "lng": 77.5945627,
+                        "nextOffset": "COVCELQ4KICg97fn1ojZJTCnEw==",
+                        "widgetOffset": {
+                            "NewListingView_Topical_Fullbleed": "",
+                            "NewListingView_category_bar_chicletranking_TwoRows": "",
+                            "NewListingView_category_bar_chicletranking_TwoRows_Rendition": "",
+                            "Restaurant_Group_WebView_PB_Theme": "",
+                            "Restaurant_Group_WebView_SEO_PB_Theme": "",
+                            "collectionV5RestaurantListWidget_SimRestoRelevance_food_seo": "10",
+                            "inlineFacetFilter": "",
+                            "restaurantCountWidget": ""
+                        },
+                        "filters": {},
+                        "seoParams": {
+                            "seoUrl": "https://www.swiggy.com/",
+                            "pageType": "FOOD_HOMEPAGE",
+                            "apiName": "FoodHomePage"
+                        },
+                        "page_type": "DESKTOP_WEB_LISTING",
+                        "_csrf": "YH5n08SgbkUZ-zpAL-zeJwmc09fXXBG7yc5H8D_s"
+                    }), 
+                });
+                const json = await data.json();
+                dispatch(updateRestaurants(json.data.cards[0].card.card.gridElements.infoWithStyle.restaurants));
+            };
+
+            let isFetchCalled = false;
+
+            const handleScroll = () => {
+                if (scrollDivRef.current) {
+                  const rect = scrollDivRef.current.getBoundingClientRect();
+                  const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+          
+                  if (isVisible && !isFetchCalled) {
+                    fetchRes();
+                    isFetchCalled = true;
+                  }
+                }
+            };
+          
+            window.addEventListener('scroll', handleScroll);
+        
+            return () => {
+            window.removeEventListener('scroll', handleScroll);
+            };
+        }
+    }, [card])
 
     let title = '';
     if(card[0] === 'offers' || card[0] === 'whats_on_mind') {
@@ -50,7 +117,12 @@ const Section = ({card}) => {
             )
         }
     } else if(card[0] === 'restaurants_list' || card[0] === 'top_brands_for_you') {
-        let restaurants = card[1].data.gridElements.infoWithStyle.restaurants;
+        let restaurants;
+        if(card[0] === 'top_brands_for_you') {
+            restaurants = card[1].data?.gridElements?.infoWithStyle?.restaurants;
+        } else {
+            restaurants = allRestaurants;
+        }
         return (
             <div>
                 <div className='flex justify-between mt-5'>
@@ -101,6 +173,11 @@ const Section = ({card}) => {
                                 }
                             </Link>
                         ))
+                    }
+                </div>
+                <div>
+                    {
+                        card[0] === 'restaurants_list' && <div ref={scrollDivRef}></div>
                     }
                 </div>
             </div>
