@@ -10,10 +10,9 @@ const Body = () => {
     return cardsArray && cardsArray.length === 0 ? 
         <Loading text={'Looking for great food near you...'}/> : 
         (
-            <div className="lg:mx-[15%] border mt-8">
+            <div className="lg:mx-[13%] mt-8">
                 {
-                    
-                    cardsArray.map((card, index) => (<Section key={index} card={card[1]}/>))
+                    cardsArray.map((card, index) => (<Section key={index} card={card}/>))
                 }
             </div>
         )
