@@ -13,6 +13,7 @@ const Section = ({card}) => {
     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
     const [isHandlePureVeg, setIsHandlePureVeg] = useState(false);
     const [isHandleRating, setIsHandleRating] = useState(false);
+    const [isLocationChanged, setIsLocationChanged] = useState(false); 
 
     const containerRef = useRef(null);
     const scrollDivRef = useRef(null);
@@ -26,6 +27,7 @@ const Section = ({card}) => {
     };
 
     const allRestaurants = useSelector((store) => store.restaurants.restaurants);
+    const location = useSelector((store) => store.location.location);
 
     if(card[0] === 'restaurants_list') {
         localStorage.setItem('resCount', allRestaurants.length + 1);
@@ -34,11 +36,11 @@ const Section = ({card}) => {
     useEffect(() => {
         setRestaurants(allRestaurants);
         setFilteredRestaurants(allRestaurants);
-    }, [allRestaurants]);
+    }, [allRestaurants, location]);
+
 
     const handlePureVeg = () => {
         if(!isHandlePureVeg) {
-            console.log('Pure veg - ' , restaurants);
             let _filteredRestaurants = [];
             filteredRestaurants.forEach((restaurant) => {
                 if(restaurant.info.veg) {
@@ -71,6 +73,7 @@ const Section = ({card}) => {
 
     useEffect(() => {
         if(card[0] === 'restaurants_list') {
+            debugger;
             let isFetchCalled = false;
             let res = card[1].data?.gridElements?.infoWithStyle?.restaurants;
             dispatch(updateRestaurants(res));
@@ -133,7 +136,7 @@ const Section = ({card}) => {
             window.removeEventListener('scroll', handleScroll);
             };
         }
-    }, [card, dispatch])
+    }, [card, dispatch, location])
 
     let title = '';
     if(card[0] === 'offers' || card[0] === 'whats_on_mind') {
@@ -232,9 +235,6 @@ const Section = ({card}) => {
                                     </li>
                                 </ul>
                             </div>
-                            <div className='border border-slate-400 mr-12'>
-                                <input placeholder='Search for a restaurant' className='board border-slate-400 p-2'/>
-                            </div>
                         </div>
                     }
                 </div>
@@ -268,7 +268,7 @@ const Section = ({card}) => {
                   <div className='font-bold text-2xl'>{details.title}</div>
                   <div className='grid grid-cols-4 gap-4 mt-4 text-center'>
                     {details.brands.map((brand, index) => (
-                      <div className='border p-4 truncate cursor-pointer' key={index}>{brand.text}</div>
+                      <div className='border p-4 truncate cursor-pointer' key={index}><a href={brand.link} target='_blank' rel="noreferrer">{brand.text}</a></div>
                     ))}
                   </div>
                 </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { cdnUrl } from "../utils/constants";
+import { CDN_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, clearCart, removeItem, setResDetails } from "../utils/cartSlice";
 import Modal from './Modal';
@@ -107,13 +107,13 @@ const Item = ({item, isCart, resDetails}) => {
             <img
               className="h-28 rounded-md"
               alt={item.name}
-              src={cdnUrl + item.imageId}
+              src={CDN_URL + item.imageId}
             /> :
             // <div className="relative text-center">
             //   <img
             //     className="h-28 rounded-md"
             //     alt={item.name}
-            //     src={cdnUrl + item.imageId}
+            //     src={CDN_URL + item.imageId}
             //   />
             //   {selectedCount === 0 ? 
             //     <button
@@ -138,7 +138,7 @@ const Item = ({item, isCart, resDetails}) => {
                 <img
                   className="h-28 rounded-md"
                   alt={item.name}
-                  src={cdnUrl + item.imageId}
+                  src={CDN_URL + item.imageId}
                 />
               </div>
               {selectedCount > 0 ? (

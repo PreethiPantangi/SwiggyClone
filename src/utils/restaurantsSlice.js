@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const restaurantsSlice = createSlice({
     name: 'restaurants',
@@ -8,7 +8,6 @@ const restaurantsSlice = createSlice({
     reducers: {
         updateRestaurants: (state, action) => {
             state.restaurants = [...state.restaurants, ...action.payload];
-            console.log(current(state));
         }
     }
 });

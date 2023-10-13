@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCart, addItem, removeItem, setResDetails } from '../utils/cartSlice';
-import {cdnUrl} from '../utils/constants'
+import {CDN_URL} from '../utils/constants'
 import { Link } from 'react-router-dom';
 
 const Cart = () => {
@@ -25,7 +25,6 @@ const Cart = () => {
         totalPrice += price;
     });
     const _orderedItems = Array.from(orderedItems);
-    console.log(orderedItems);
     toPay = totalPrice;
 
     const dispatch = useDispatch();
@@ -63,7 +62,7 @@ const Cart = () => {
                                 <img 
                                     alt={resDetails.name}
                                     className='h-14 w-14'
-                                    src={cdnUrl + resDetails.cloudinaryImageId}
+                                    src={CDN_URL + resDetails.cloudinaryImageId}
                                 />
                             </div>
                             <div>

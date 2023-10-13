@@ -56,14 +56,17 @@ const Carousel = ({ style, imageUrl, data, title }) => {
         <div className='flex space-x-4'>
           {
             data.map((offer) => (
-              <img
-                className='cursor-pointer'
-                key={offer.id}
-                src={imageUrl + offer.imageId}
-                alt={offer.id}
-                width={width}
-                height={height}
-              />
+              <a href={offer.action.link} key={offer.id} target='_blank' rel="noreferrer">
+                <div style={{width: width, height: height}}>
+                  <img
+                    className='cursor-pointer'
+                    src={imageUrl + offer.imageId}
+                    alt={offer.id}
+                    width={width} // Use width from style prop
+                    height={height} // Use height from style prop
+                  />
+                </div>
+              </a>
             ))
           }
         </div>

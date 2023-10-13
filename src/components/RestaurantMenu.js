@@ -18,8 +18,6 @@ const RestaurantMenu = () => {
   const restaurantDetails = resDetails?.cards[0]?.card?.card?.info;
   const restaurantMenuCards = resDetails?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards; //?.cards[1]?.card?.card?.itemCards
 
-  console.log(restaurantDetails);
-
   return (
     <div className='lg:mx-[20%] mt-10'>
         <div className='flex justify-between'>

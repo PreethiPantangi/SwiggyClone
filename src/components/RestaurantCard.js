@@ -1,5 +1,5 @@
 import React from 'react';
-import {cdnUrl} from '../utils/constants'
+import {CDN_URL} from '../utils/constants'
 
 const RestaurantCard = (props) => {
     const {resData, shouldEnableCarousel} = props;
@@ -11,7 +11,7 @@ const RestaurantCard = (props) => {
                 <img 
                     alt={name}
                     className="h-44 w-full overflow-hidden rounded-lg hover:scale-95"
-                    src={cdnUrl + cloudinaryImageId}
+                    src={CDN_URL + cloudinaryImageId}
                 />
                 {aggregatedDiscountInfoV3 && <div className="absolute inset-x-0 bottom-0 h-6 bg-black opacity-50"></div>}
             </div>
