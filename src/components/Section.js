@@ -9,6 +9,10 @@ const Section = ({card}) => {
     
     const RestaurantCardWithOffer = withOfferText(RestaurantCard);
     const [isLoading, setIsLoading] = useState(false);
+    const [restaurants, setRestaurants] = useState([]);
+    const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+    const [isHandlePureVeg, setIsHandlePureVeg] = useState(false);
+    const [isHandleRating, setIsHandleRating] = useState(false);
 
     const containerRef = useRef(null);
     const scrollDivRef = useRef(null);
@@ -25,6 +29,42 @@ const Section = ({card}) => {
 
     if(card[0] === 'restaurants_list') {
         localStorage.setItem('resCount', allRestaurants.length + 1);
+    }
+
+    useEffect(() => {
+        setRestaurants(allRestaurants);
+        setFilteredRestaurants(allRestaurants);
+    }, [allRestaurants]);
+
+    const handlePureVeg = () => {
+        if(!isHandlePureVeg) {
+            console.log('Pure veg - ' , restaurants);
+            let _filteredRestaurants = [];
+            filteredRestaurants.forEach((restaurant) => {
+                if(restaurant.info.veg) {
+                    _filteredRestaurants.push(restaurant);
+                }
+            });
+            setFilteredRestaurants(_filteredRestaurants);
+        } else {
+            setFilteredRestaurants(restaurants);
+        }
+        setIsHandlePureVeg(!isHandlePureVeg);
+    }
+
+    const handleRating = () => {
+        if(!isHandleRating) {
+            let _filteredRestaurants = [];
+            filteredRestaurants.forEach((restaurant) => {
+                if(restaurant.info.avgRating > 4.0) {
+                    _filteredRestaurants.push(restaurant);
+                }
+            });
+            setFilteredRestaurants(_filteredRestaurants);
+        } else {
+            setFilteredRestaurants(restaurants);
+        }
+        setIsHandleRating(!isHandleRating);
     }
 
     let dispatch = useDispatch();
@@ -127,12 +167,6 @@ const Section = ({card}) => {
             )
         }
     } else if(card[0] === 'restaurants_list' || card[0] === 'top_brands_for_you') {
-        let restaurants;
-        if(card[0] === 'top_brands_for_you') {
-            restaurants = card[1].data?.gridElements?.infoWithStyle?.restaurants;
-        } else {
-            restaurants = allRestaurants;
-        }
         return (
             <div>
                 <div className='flex justify-between mt-5'>
@@ -172,9 +206,41 @@ const Section = ({card}) => {
                         </div>
                     </div>}
                 </div>
+                <div className='mt-4 ml-4'>
+                    {
+                        card[0] === 'restaurants_list' && 
+                        <div className='flex justify-between'>
+                            <div>
+                                <ul className='flex'>
+                                    <li 
+                                        className='p-2 border border-slate-300 rounded-3xl w-36 text-center mr-2 cursor-pointer hover:bg-slate-200'
+                                        onClick={handleRating}
+                                    >
+                                        <div className='flex'>
+                                            <div className='mr-3'>Ratings 4.0+</div>
+                                            <div><div>{isHandleRating && <img alt='close' src='https://static.thenounproject.com/png/1202535-200.png' className='w-6 h-6'/>}</div></div>
+                                        </div>
+                                    </li>
+                                    <li 
+                                        className='p-2 border border-slate-300 rounded-3xl w-28 text-center mr-2 cursor-pointer hover:bg-slate-200'
+                                        onClick={handlePureVeg}
+                                    >
+                                        <div className='flex'>
+                                            <div className='mr-1'>Pure Veg</div>
+                                            <div><div>{isHandlePureVeg && <img alt='close' src='https://static.thenounproject.com/png/1202535-200.png' className='w-6 h-6'/>}</div></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className='border border-slate-400 mr-12'>
+                                <input placeholder='Search for a restaurant' className='board border-slate-400 p-2'/>
+                            </div>
+                        </div>
+                    }
+                </div>
                 <div  ref={containerRef} className= {card[0] === 'top_brands_for_you' ? 'flex mt-4 space-x-5 overflow-x-scroll no-scrollbar' : 'flex flex-wrap mt-4'}>
                     {
-                        restaurants.map((restaurant) => (
+                        filteredRestaurants.map((restaurant) => (
                             <Link key={restaurant.info.id} to={"restaurant/" + restaurant.info.id}>
                                 {
                                     restaurant.info.aggregatedDiscountInfoV3 ?
