@@ -6,7 +6,7 @@ const RestaurantCard = (props) => {
     const {name, cloudinaryImageId, cuisines, avgRating, areaName, aggregatedDiscountInfoV3} = resData?.info; 
 
     return (
-        <div className={shouldEnableCarousel ? "h-92 w-52 p-2 m-2 hover:cursor-pointer hover:scale-95" : "w-56 h-92 p-2 m-2 hover:cursor-pointer hover:scale-95 overflow-hidden"}>
+        <div className={shouldEnableCarousel ? "bg-gray-200 h-92 w-52 p-2 m-2 hover:cursor-pointer hover:scale-95 rounded-md" : "bg-gray-200 w-64 h-92 p-2 m-2 hover:cursor-pointer hover:scale-95 overflow-hidden rounded-md"}>
             <div className='relative'>
                 <img 
                     alt={name}

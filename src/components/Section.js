@@ -1,14 +1,14 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Carousel from './Carousel';
 import { Link } from 'react-router-dom';
 import RestaurantCard, {withOfferText} from './RestaurantCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateRestaurants } from '../utils/restaurantsSlice';
 
-
 const Section = ({card}) => {
     
     const RestaurantCardWithOffer = withOfferText(RestaurantCard);
+    const [isLoading, setIsLoading] = useState(false);
 
     const containerRef = useRef(null);
     const scrollDivRef = useRef(null);
@@ -23,13 +23,21 @@ const Section = ({card}) => {
 
     const allRestaurants = useSelector((store) => store.restaurants.restaurants);
 
+    if(card[0] === 'restaurants_list') {
+        localStorage.setItem('resCount', allRestaurants.length + 1);
+    }
+
     let dispatch = useDispatch();
 
     useEffect(() => {
         if(card[0] === 'restaurants_list') {
+            let isFetchCalled = false;
             let res = card[1].data?.gridElements?.infoWithStyle?.restaurants;
             dispatch(updateRestaurants(res));
+            
             const fetchRes = async () => {
+                setIsLoading(true);
+                let count = JSON.parse(localStorage.getItem('resCount')) ? JSON.parse(localStorage.getItem('resCount')) : 10;
                 const data = await fetch('https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/update', {
                     method: "POST", 
                     headers: {
@@ -45,7 +53,7 @@ const Section = ({card}) => {
                             "NewListingView_category_bar_chicletranking_TwoRows_Rendition": "",
                             "Restaurant_Group_WebView_PB_Theme": "",
                             "Restaurant_Group_WebView_SEO_PB_Theme": "",
-                            "collectionV5RestaurantListWidget_SimRestoRelevance_food_seo": "10",
+                            "collectionV5RestaurantListWidget_SimRestoRelevance_food_seo": JSON.stringify(count),
                             "inlineFacetFilter": "",
                             "restaurantCountWidget": ""
                         },
@@ -60,10 +68,12 @@ const Section = ({card}) => {
                     }), 
                 });
                 const json = await data.json();
-                dispatch(updateRestaurants(json.data.cards[0].card.card.gridElements.infoWithStyle.restaurants));
+                let restaurantsData = json.data.cards[0].card.card.gridElements.infoWithStyle.restaurants;
+                localStorage.setItem('resCount', JSON.stringify(restaurantsData.length))
+                dispatch(updateRestaurants(restaurantsData));
+                isFetchCalled = false;
+                setIsLoading(false);
             };
-
-            let isFetchCalled = false;
 
             const handleScroll = () => {
                 if (scrollDivRef.current) {
@@ -83,7 +93,7 @@ const Section = ({card}) => {
             window.removeEventListener('scroll', handleScroll);
             };
         }
-    }, [card])
+    }, [card, dispatch])
 
     let title = '';
     if(card[0] === 'offers' || card[0] === 'whats_on_mind') {
@@ -180,6 +190,7 @@ const Section = ({card}) => {
                         card[0] === 'restaurants_list' && <div ref={scrollDivRef}></div>
                     }
                 </div>
+                {isLoading && <div>Loading...</div>}
             </div>
         )
     } else if (card[0] === 'otherDetails') {
