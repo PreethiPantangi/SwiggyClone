@@ -82,14 +82,15 @@ const Section = ({card}) => {
             const fetchRes = async () => {
                 setIsLoading(true);
                 let count = JSON.parse(localStorage.getItem('resCount')) ? JSON.parse(localStorage.getItem('resCount')) : 10;
+                let latLng = JSON.parse(localStorage.getItem('latLng'));
                 const data = await fetch('https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/update', {
                     method: "POST", 
                     headers: {
                       "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        "lat": 12.9715987,
-                        "lng": 77.5945627,
+                        "lat": latLng?.lat ? latLng.lat : 17.385044,
+                        "lng": latLng?.lng ? latLng.lng : 78.486671,
                         "nextOffset": "COVCELQ4KICg97fn1ojZJTCnEw==",
                         "widgetOffset": {
                             "NewListingView_Topical_Fullbleed": "",

@@ -12,6 +12,7 @@ const useFetchCards = () => {
             const data = await fetch(ADDRESS_RECOMMEND_URL + location.place_id);
             const json = await data.json();
             let geometry = json.data[0].geometry.location;
+            localStorage.setItem('latLng', JSON.stringify(geometry));
             fetchData(geometry);
         }
     
