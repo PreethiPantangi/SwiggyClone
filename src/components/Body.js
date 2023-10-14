@@ -1,18 +1,17 @@
-import useFetchCards from '../utils/useFetchCards';
 import Loading from './Loading';
 import Section from './Section';
+import useFetchCards from '../utils/useFetchCards';
 
 const Body = () => {
 
-    const cards = useFetchCards();
-    let cardsArray = Array.from(cards);
+    const cards = Array.from(useFetchCards());
 
-    return cardsArray && cardsArray.length === 0 ? 
+    return cards && cards.length === 0 ? 
         <Loading text={'Looking for great food near you...'}/> : 
         (
             <div className="lg:mx-[13%] mt-8">
                 {
-                    cardsArray.map((card, index) => (<Section key={index} card={card}/>))
+                    cards.map((card, index) => (<Section key={index} card={card}/>))
                 }
             </div>
         )

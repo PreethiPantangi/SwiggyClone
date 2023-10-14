@@ -7,7 +7,11 @@ const restaurantsSlice = createSlice({
     },
     reducers: {
         updateRestaurants: (state, action) => {
-            state.restaurants = [...state.restaurants, ...action.payload];
+            if(action.payload.isUpdate) {
+                state.restaurants = [...state.restaurants, ...action.payload.cardDetails];
+            } else {
+                state.restaurants = [...action.payload.cardDetails];
+            }
         }
     }
 });

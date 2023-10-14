@@ -25,7 +25,6 @@ const Item = ({item, isCart, resDetails}) => {
     }, [cartItems, item.id]);
 
     const handleAddItem = (itemInfo) => {
-      debugger;
       if(Object.keys(storeResDetails).length === 0) {
         setSelectedCount(selectedCount + 1);
         dispatch(setResDetails(resDetails));

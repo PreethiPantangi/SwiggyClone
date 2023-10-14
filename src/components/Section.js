@@ -6,14 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateRestaurants } from '../utils/restaurantsSlice';
 
 const Section = ({card}) => {
-    
     const RestaurantCardWithOffer = withOfferText(RestaurantCard);
     const [isLoading, setIsLoading] = useState(false);
     const [restaurants, setRestaurants] = useState([]);
     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
     const [isHandlePureVeg, setIsHandlePureVeg] = useState(false);
     const [isHandleRating, setIsHandleRating] = useState(false);
-    const [isLocationChanged, setIsLocationChanged] = useState(false); 
 
     const containerRef = useRef(null);
     const scrollDivRef = useRef(null);
@@ -27,7 +25,6 @@ const Section = ({card}) => {
     };
 
     const allRestaurants = useSelector((store) => store.restaurants.restaurants);
-    const location = useSelector((store) => store.location.location);
 
     if(card[0] === 'restaurants_list') {
         localStorage.setItem('resCount', allRestaurants.length + 1);
@@ -36,7 +33,7 @@ const Section = ({card}) => {
     useEffect(() => {
         setRestaurants(allRestaurants);
         setFilteredRestaurants(allRestaurants);
-    }, [allRestaurants, location]);
+    }, [allRestaurants]);
 
 
     const handlePureVeg = () => {
@@ -73,10 +70,9 @@ const Section = ({card}) => {
 
     useEffect(() => {
         if(card[0] === 'restaurants_list') {
-            debugger;
             let isFetchCalled = false;
             let res = card[1].data?.gridElements?.infoWithStyle?.restaurants;
-            dispatch(updateRestaurants(res));
+            dispatch(updateRestaurants({cardDetails: res, isUpdate: false}));
             
             const fetchRes = async () => {
                 setIsLoading(true);
@@ -113,7 +109,7 @@ const Section = ({card}) => {
                 const json = await data.json();
                 let restaurantsData = json.data.cards[0].card.card.gridElements.infoWithStyle.restaurants;
                 localStorage.setItem('resCount', JSON.stringify(restaurantsData.length))
-                dispatch(updateRestaurants(restaurantsData));
+                dispatch(updateRestaurants({cardDetails: restaurantsData, isUpdate: true}));
                 isFetchCalled = false;
                 setIsLoading(false);
             };
@@ -136,7 +132,7 @@ const Section = ({card}) => {
             window.removeEventListener('scroll', handleScroll);
             };
         }
-    }, [card, dispatch, location])
+    }, [card, dispatch])
 
     let title = '';
     if(card[0] === 'offers' || card[0] === 'whats_on_mind') {
