@@ -6,7 +6,6 @@ const useFetchCards = () => {
     const [cards, setCards] = useState([]);
 
     const location = useSelector((store) => store.location.location);
-    console.log(location);
 
     useEffect(() => {
         const getLatLng = async () => {

@@ -31,9 +31,14 @@ const Section = ({card}) => {
     }
 
     useEffect(() => {
-        setRestaurants(allRestaurants);
-        setFilteredRestaurants(allRestaurants);
-    }, [allRestaurants]);
+        if(card[0] === 'restaurants_list') {
+            setRestaurants(allRestaurants);
+            setFilteredRestaurants(allRestaurants);
+        } else if (card[0] === 'top_brands_for_you') {
+            setRestaurants(card[1].data.gridElements.infoWithStyle.restaurants);
+            setFilteredRestaurants(card[1].data.gridElements.infoWithStyle.restaurants);
+        }
+    }, [card, allRestaurants]);
 
 
     const handlePureVeg = () => {

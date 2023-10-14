@@ -12,7 +12,6 @@ const LocationPopup = ({setShowLocationPopUp}) => {
     const dispatch = useDispatch();
     
     const selectedLocation = (location) => {
-        console.log(location);
         dispatch(updateLocation(location));
         setShowLocationPopUp();
     };
@@ -39,7 +38,6 @@ const LocationPopup = ({setShowLocationPopUp}) => {
                 res['address'] = address;
                 allPossibleLocation.push(res)
             });
-            console.log(allPossibleLocation);
             setPossibleLocations(allPossibleLocation);
             setLoadingLocation(false);
         };
