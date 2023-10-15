@@ -8,5 +8,4 @@
 
 ### TODo
 1. Responsive
-2. About Page
 3. Animations

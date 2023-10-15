@@ -53,9 +53,9 @@ const Cart = () => {
     }
 
     return (
-        <div className='lg:mx-[13%] mt-8'>
+        <div className='lg:mx-[13%]'>
             {
-                cartItems.length > 0 ? 
+                cartItems.length > 0  ? 
                 <div className='m-5'>
                     <div className='flex justify-between'>
                         <div className='flex'>
@@ -79,7 +79,6 @@ const Cart = () => {
                         </div>
                     </div>
                     <div className='h-80 m-1 p-2  overflow-y-auto overflow-x-hidden'>
-                    {/* <div className='fixed w-[800px] max-h-[600px] overflow-y-auto bg-white border border-gray-300'> */}
                         {
                             _orderedItems.map((item) => (
                                 <div key={item[0]} className='w-full flex p-2 m-5 bg-gray-200'>
@@ -101,7 +100,7 @@ const Cart = () => {
                             ))
                         }
                     </div>
-                    <div className='m-5'>
+                    <div className='m-3'>
                         <div className='font-bold'>Bill Details</div>
                         <div className='flex justify-between w-1/2 font-light'>
                             <div className='text-sm ml-1'>Item Total</div>
@@ -121,15 +120,26 @@ const Cart = () => {
                             <div>&#8377;{toPay}</div>
                         </div>
                     </div>
+                    <div>
+                        <button 
+                            id="colorButton"
+                            onClick={() => {handleClearCart();}}
+                            className="text-center m-auto block font-bold border p-3 bg-orange-500 text-white"
+                            >
+                            Place Order
+                        </button>
+                    </div>
                 </div> : 
-                <div className='flex flex-col justify-center items-center h-screen'>
-                    <img
-                        src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/2xempty_cart_yfxml0"
-                        alt='Your cart is empty'
-                        className='w-72 h-64'
-                    />
-                    <div>Your cart is empty</div>
-                    <div>You can go to the home page to view more restaurants</div>
+                <div>
+                    <div className='flex flex-col justify-center items-center h-screen'>
+                        <img
+                            src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/2xempty_cart_yfxml0"
+                            alt='Your cart is empty'
+                            className='w-72 h-64'
+                        />
+                        <div>Your cart is empty</div>
+                        <div>You can go to the home page to view more restaurants</div>
+                    </div> 
                 </div>
             }
         </div>

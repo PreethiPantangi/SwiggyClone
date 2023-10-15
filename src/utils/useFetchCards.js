@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { FETCH_CARDS_URL, ADDRESS_RECOMMEND_URL } from '../utils/constants';
 import { useSelector } from "react-redux";
+import Loading from '../components/Loading';
 
 const useFetchCards = () => {
     const [cards, setCards] = useState([]);
+    const [isDataFetched, setIsDataFetched] = useState(false);
 
     const location = useSelector((store) => store.location.location);
 
@@ -17,6 +19,7 @@ const useFetchCards = () => {
         }
     
         const fetchData = async (geometry) => {
+            setIsDataFetched(false);
             const data = await fetch(FETCH_CARDS_URL + 'lat=' + geometry.lat + '&lng=' + geometry.lng);
             const json = await data.json();
             const sections = new Map();
@@ -61,7 +64,7 @@ const useFetchCards = () => {
                 }
             });
             setCards(sections);
-            
+            setIsDataFetched(true);
         }
         
         if(Object.keys(location).length > 0) {
@@ -70,6 +73,10 @@ const useFetchCards = () => {
             fetchData({lat: 17.385044, lng:78.486671});
         }
     }, [location]);
+
+    if(!isDataFetched) {
+        return <Loading text={'Looking for great food near you...'}/>
+    }
 
     return cards;
 }

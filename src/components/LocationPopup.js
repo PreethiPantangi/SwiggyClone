@@ -16,7 +16,7 @@ const LocationPopup = ({setShowLocationPopUp}) => {
     const selectedLocation = (location) => {
         dispatch(updateLocation(location));
         setShowLocationPopUp();
-        navigate('/')
+        navigate('/');
     };
 
     useEffect(() => {
