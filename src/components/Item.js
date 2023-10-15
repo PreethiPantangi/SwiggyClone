@@ -73,8 +73,8 @@ const Item = ({item, isCart, resDetails}) => {
   return (
     <React.Fragment>
       {/* lg:mx-[20%] mt-10 min-[375px]:m-[10%] max-[650px]:m-[10%] */}
-      <div className="flex justify-between m-3 mb-3 min-[375px]:mb-32 max-[650px]:mb-32" key={item.id}>
-        <div className="w-10/12 h-32 mr-3 mb-6 min-[375px]:w-1/2 max-[650px]:w-1/2">
+      <div className="flex justify-between m-3 mb-6" key={item.id}>
+        <div className="w-10/12 h-32 mr-3 mb-6 max-[415px]:mb-40 max-[415px]:w-1/2">
           <div className="flex">
             {item.isBestseller && item.ribbon && (
               <div className="flex">
@@ -98,11 +98,11 @@ const Item = ({item, isCart, resDetails}) => {
           <div className="mr-1 mt-3 font-bold text-[#3e4152] break-all">
             &#8377;{item.price ? item.price / 100 : item.defaultPrice / 100}
           </div>
-          <div className="mt-4 leading-5 break-all text-justify">
+          <div className="mt-4 leading-5 break-all text-justify max-[415px]:h-full max-[415px]:overflow-x-hidden">
             {item.description}
           </div>
         </div>
-        <div className="relative inline-block w-2/12 min-[375px]:w-1/2 max-[650px]:w-1/2">
+        <div className="relative inline-block w-2/12 max-[415px]:w-1/2">
           {isCart ? 
             <img
               className="h-28 rounded-md"

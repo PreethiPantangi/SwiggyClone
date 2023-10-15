@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCart, addItem, removeItem, setResDetails } from '../utils/cartSlice';
 import {CDN_URL} from '../utils/constants'
@@ -8,6 +8,7 @@ const Cart = () => {
 
     const cartItems = useSelector((store) => store.cart.items);
     const resDetails = useSelector((store) => store.cart.resDetails);
+    const [isOrderPlaced, setIsOrderPlaced] = useState(false);
     let totalPrice = 0;
     let gstCharges = 10;
     let platformFee = 3;
@@ -52,10 +53,15 @@ const Cart = () => {
       }
     }
 
+    const placeOrder = () => {
+        setIsOrderPlaced(true);
+        handleClearCart();
+    }
+
     return (
         <div className='lg:mx-[13%]'>
             {
-                cartItems.length > 0  ? 
+                cartItems.length > 0 &&
                 <div className='m-5'>
                     <div className='flex justify-between'>
                         <div className='flex'>
@@ -123,13 +129,16 @@ const Cart = () => {
                     <div>
                         <button 
                             id="colorButton"
-                            onClick={() => {handleClearCart();}}
+                            onClick={placeOrder}
                             className="text-center m-auto block font-bold border p-3 bg-orange-500 text-white"
                             >
                             Place Order
                         </button>
                     </div>
-                </div> : 
+                </div> 
+            }
+            {
+                cartItems.length === 0 && !isOrderPlaced && 
                 <div>
                     <div className='flex flex-col justify-center items-center h-screen'>
                         <img
@@ -140,6 +149,15 @@ const Cart = () => {
                         <div className='mt-10 text-gray-400'>Your cart is empty</div>
                         <div className='ml-10 justify-center text-gray-400'>You can go to the home page to view more restaurants</div>
                     </div> 
+                </div>
+            }
+            {
+                cartItems.length === 0 && isOrderPlaced && 
+                <div>
+                    <img
+                        src='https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnE3MWZobzgxbjhoMm90bTloaXhibGxiOGhkYTUwbHN5aTRtZGptaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/cmCHuk53AiTmOwBXlw/giphy.gif'
+                        alt='Swiggy delivery boy'
+                    />
                 </div>
             }
         </div>
