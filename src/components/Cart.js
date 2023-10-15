@@ -153,11 +153,18 @@ const Cart = () => {
             }
             {
                 cartItems.length === 0 && isOrderPlaced && 
-                <div>
+                <div className='text-center m-auto'>
                     <img
                         src='https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnE3MWZobzgxbjhoMm90bTloaXhibGxiOGhkYTUwbHN5aTRtZGptaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/cmCHuk53AiTmOwBXlw/giphy.gif'
                         alt='Swiggy delivery boy'
+                        className='items-center m-auto'
+                        width={200}
+                        height={200}
                     />
+                    <div className='font-bold'>
+                        Thank you for ordering. <br/>
+                        Your order will reach you in approximately 30 mins
+                    </div>
                 </div>
             }
         </div>

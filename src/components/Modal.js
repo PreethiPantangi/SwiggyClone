@@ -5,7 +5,7 @@ const Modal = ({isOpen, handleClose, modalDetails}) => {
     if (!isOpen) return null;
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-            <div className="bg-white w-1/3 border border-black ml-2 p-2 flex flex-col">
+            <div className="bg-white w-1/3 border border-black ml-2 p-2 flex flex-col max-[450px]:w-full">
                 <div className="flex-1 border-b border-gray-300 p-2 font-bold">{header}</div>
                 <div className="flex-1 p-2">{body}</div>
                 <div className="flex-1 flex p-2">
