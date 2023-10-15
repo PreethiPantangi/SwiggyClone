@@ -10,4 +10,3 @@
 1. Responsive
 2. About Page
 3. Animations
-4. Persist data on refresh
