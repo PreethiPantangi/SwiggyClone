@@ -7,10 +7,10 @@ import About from "./components/About";
 const AppRouter = () => {
     return (
         <Routes>
-            <Route path="/SwiggyClone" element={<Body />} />
-            <Route path="/SwiggyClone/restaurant/:resId" element={<RestaurantMenu/>} />
-            <Route path="/SwiggyClone/cart" element={<Cart/>} />
-            <Route path="/SwiggyClone/about" element={<About/>} />
+            <Route exact path="/" element={<Body />} />
+            <Route path="/restaurant/:resId" element={<RestaurantMenu/>} />
+            <Route path="/cart" element={<Cart/>} />
+            <Route path="/about" element={<About/>} />
         </Routes>
     )
 }
