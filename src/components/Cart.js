@@ -73,7 +73,7 @@ const Cart = () => {
                                 />
                             </div>
                             <div>
-                                <div className='font-bold cursor-pointer hover:text-orange-500 hover:underline' onClick={() => {navigate('/SwiggyClone/restaurant/' + resDetails.id)}}>{resDetails.name}</div>
+                                <div className='font-bold cursor-pointer hover:text-orange-500 hover:underline' onClick={() => {navigate('/restaurant/' + resDetails.id)}}>{resDetails.name}</div>
                                 <div>{resDetails.areaName}</div>
                             </div>
                         </div>
