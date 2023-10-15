@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import RestaurantCard, {withOfferText} from './RestaurantCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateRestaurants } from '../utils/restaurantsSlice';
+import { UPDATE_RESTAURANTS_LIST_URL } from '../utils/constants';
 
 const Section = ({card}) => {
     const RestaurantCardWithOffer = withOfferText(RestaurantCard);
@@ -83,7 +84,7 @@ const Section = ({card}) => {
                 setIsLoading(true);
                 let count = JSON.parse(localStorage.getItem('resCount')) ? JSON.parse(localStorage.getItem('resCount')) : 10;
                 let latLng = JSON.parse(localStorage.getItem('latLng'));
-                const data = await fetch('https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/update', {
+                const data = await fetch(UPDATE_RESTAURANTS_LIST_URL, {
                     method: "POST", 
                     headers: {
                       "Content-Type": "application/json",
