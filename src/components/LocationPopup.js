@@ -2,18 +2,21 @@ import { useEffect, useState } from "react";
 import {AUTOCOMPLETE_URL} from '../utils/constants';
 import { useDispatch } from "react-redux";
 import { updateLocation } from '../utils/locationSlice';
+import { useNavigate } from "react-router-dom";
 
 const LocationPopup = ({setShowLocationPopUp}) => {
 
     const [location, setLocation] = useState('');
     const [possibleLocations, setPossibleLocations] = useState([]);
     const [loadingLocations, setLoadingLocation] = useState(false);
+    let navigate = useNavigate();
 
     const dispatch = useDispatch();
     
     const selectedLocation = (location) => {
         dispatch(updateLocation(location));
         setShowLocationPopUp();
+        navigate('/')
     };
 
     useEffect(() => {

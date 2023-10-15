@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCart, addItem, removeItem, setResDetails } from '../utils/cartSlice';
 import {CDN_URL} from '../utils/constants'
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
 
@@ -12,6 +12,7 @@ const Cart = () => {
     let gstCharges = 10;
     let platformFee = 3;
     let toPay = gstCharges + platformFee;
+    let navigate = useNavigate();
 
     const orderedItems = new Map();
     cartItems.forEach((item) => {
@@ -66,7 +67,7 @@ const Cart = () => {
                                 />
                             </div>
                             <div>
-                                <Link to={"restaurant/" + resDetails.id}><div className='font-bold'>{resDetails.name}</div></Link>
+                                <div className='font-bold cursor-pointer hover:text-orange-500 hover:underline' onClick={() => {navigate('/restaurant/' + resDetails.id)}}>{resDetails.name}</div>
                                 <div>{resDetails.areaName}</div>
                             </div>
                         </div>

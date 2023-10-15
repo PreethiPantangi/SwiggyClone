@@ -7,7 +7,6 @@ const Header = () => {
 
     const cartItems = useSelector((store) => store.cart.items);
     const location = useSelector((store) => store.location.location);
-    console.log(location);
 
     const [showLocationPopUp, setShowLocationPopUp] = useState(false);
 
