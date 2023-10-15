@@ -14,7 +14,7 @@ const Carousel = ({ style, imageUrl, data, title }) => {
   };
 
   return (
-    <div className="">
+    <div className="sm:m-[5%] min-[375px]:m-[5%] max-[450px]:m-[5%]">
       <div className='flex justify-between items-center mt-5'>
         <div className="font-bold text-2xl">{title}</div>
         <div className='flex space-x-2'>

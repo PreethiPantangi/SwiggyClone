@@ -13,7 +13,7 @@ const Header = () => {
     return (
         <React.Fragment>
             <div className="p-3 sticky top-0 z-10 bg-white lg:mx-[10%]">
-                <div className="flex justify-between">
+                <div className="md:flex md:justify-between lg:flex lg:justify-between">
                     <div className="flex">
                         <div>
                             <Link to='/SwiggyClone'>
@@ -25,17 +25,19 @@ const Header = () => {
                         </div>
                     </div>
                     <div>
-                    <ul className="flex space-x-5 mt-4">
-                        <Link to='/SwiggyClone/cart'>
-                            <li className="text-[#3D4152] font-semibold hover:text-orange-500 cursor-pointer flex">
-                                <div>Cart</div>
-                                {cartItems.length > 0 && <div className="ml-1 -mt-1 bg-green-600 hover:bg-orange-500 text-white p-1 h-7 mb-1">{cartItems.length}</div>}
-                            </li>
-                        </Link>
-                        <Link to='/SwiggyClone/about'>
-                            <li className="text-[#3D4152] space-x-4 font-semibold hover:text-orange-500 cursor-pointer">About</li>
-                        </Link>
-                    </ul>
+                    <div className="">
+                        <ul className="flex space-x-5 mt-4">
+                            <Link to='/SwiggyClone/cart'>
+                                <li className="text-[#3D4152] font-semibold hover:text-orange-500 cursor-pointer flex">
+                                    <div>Cart</div>
+                                    {cartItems.length > 0 && <div className="ml-1 -mt-1 bg-green-600 hover:bg-orange-500 text-white p-1 h-7 mb-1">{cartItems.length}</div>}
+                                </li>
+                            </Link>
+                            <Link to='/SwiggyClone/about'>
+                                <li className="text-[#3D4152] space-x-4 font-semibold hover:text-orange-500 cursor-pointer">About</li>
+                            </Link>
+                        </ul>
+                    </div>
                     </div>
                 </div>
                 {

@@ -5,6 +5,7 @@ import RestaurantCard, {withOfferText} from './RestaurantCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateRestaurants } from '../utils/restaurantsSlice';
 import { UPDATE_RESTAURANTS_LIST_URL } from '../utils/constants';
+import Shimmer from './Shimmer';
 
 const Section = ({card}) => {
     const RestaurantCardWithOffer = withOfferText(RestaurantCard);
@@ -174,7 +175,7 @@ const Section = ({card}) => {
         }
     } else if(card[0] === 'restaurants_list' || card[0] === 'top_brands_for_you') {
         return (
-            <div>
+            <div className='sm:m-[5%] min-[375px]:m-[5%] max-[412px]:m-[5%]'>
                 <div className='flex justify-between mt-5'>
                     <div className='font-bold text-2xl'>{card[1].data.title ? card[1].data.title : card[1].data.header.title}</div>
                     {card[0] === 'top_brands_for_you' && <div className='flex space-x-2'>
@@ -259,7 +260,14 @@ const Section = ({card}) => {
                         card[0] === 'restaurants_list' && <div ref={scrollDivRef}></div>
                     }
                 </div>
-                {isLoading && <div>Loading...</div>}
+                {isLoading && 
+                    <div className='flex flex-wrap'>
+                        <Shimmer/>
+                        <Shimmer/>
+                        <Shimmer/>
+                        <Shimmer/>
+                    </div>
+                }
             </div>
         )
     } else if (card[0] === 'otherDetails') {
