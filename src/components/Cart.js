@@ -137,8 +137,8 @@ const Cart = () => {
                             alt='Your cart is empty'
                             className='w-72 h-64'
                         />
-                        <div>Your cart is empty</div>
-                        <div>You can go to the home page to view more restaurants</div>
+                        <div className='mt-10 text-gray-400'>Your cart is empty</div>
+                        <div className='ml-10 justify-center text-gray-400'>You can go to the home page to view more restaurants</div>
                     </div> 
                 </div>
             }

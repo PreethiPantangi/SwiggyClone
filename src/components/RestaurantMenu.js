@@ -15,11 +15,18 @@ const RestaurantMenu = () => {
     return <Loading text={'Fetching restaurant menu for you...'}/>
   }
 
+  debugger;
   const restaurantDetails = resDetails?.cards[0]?.card?.card?.info;
-  const restaurantMenuCards = resDetails?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards; //?.cards[1]?.card?.card?.itemCards
+  let restaurantMenuCards;
+  if(resDetails?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards) {
+    restaurantMenuCards = resDetails?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+  } else {
+    restaurantMenuCards = resDetails.cards[3].groupedCard.cardGroupMap.REGULAR.cards; 
+  }
+
 
   return (
-    <div className='lg:mx-[20%] mt-10'>
+    <div className='lg:mx-[20%] mt-10 min-[375px]:m-[10%] max-[650px]:m-[10%]'>
         <div className='flex justify-between'>
           <div>
             <h1 className='text-[#282c3f] font-bold text-xl capitalize'>{restaurantDetails.name}</h1>

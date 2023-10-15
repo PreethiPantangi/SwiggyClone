@@ -72,8 +72,9 @@ const Item = ({item, isCart, resDetails}) => {
 
   return (
     <React.Fragment>
-      <div className="flex justify-between m-3 mb-3" key={item.id}>
-        <div className="w-10/12 h-32 mr-3 mb-6">
+      {/* lg:mx-[20%] mt-10 min-[375px]:m-[10%] max-[650px]:m-[10%] */}
+      <div className="flex justify-between m-3 mb-3 min-[375px]:mb-32 max-[650px]:mb-32" key={item.id}>
+        <div className="w-10/12 h-32 mr-3 mb-6 min-[375px]:w-1/2 max-[650px]:w-1/2">
           <div className="flex">
             {item.isBestseller && item.ribbon && (
               <div className="flex">
@@ -101,37 +102,13 @@ const Item = ({item, isCart, resDetails}) => {
             {item.description}
           </div>
         </div>
-        <div className="relative inline-block w-2/12">
+        <div className="relative inline-block w-2/12 min-[375px]:w-1/2 max-[650px]:w-1/2">
           {isCart ? 
             <img
               className="h-28 rounded-md"
               alt={item.name}
               src={CDN_URL + item.imageId}
             /> :
-            // <div className="relative text-center">
-            //   <img
-            //     className="h-28 rounded-md"
-            //     alt={item.name}
-            //     src={CDN_URL + item.imageId}
-            //   />
-            //   {selectedCount === 0 ? 
-            //     <button
-            //       className="bg-slate-100 text-green-500 w-1/2 border border-black shadow-md absolute top-20 left-9 p-2 rounded-sm cursor-pointer"
-            //       onClick={() => handleAddItem(item)}
-            //     >
-            //       Add
-            //     </button> :
-            //     <div className="flex bg-slate-100 w-1/2 text-green-500 border border-black shadow-md absolute top-20 left-9 p-2 rounded-sm cursor-pointer justify-between">
-            //       <div className="flex items-center">
-            //         <button onClick={() => handleItemCount(item, 'remove')} className="text-lg">-</button>
-            //       </div>
-            //       <div className="flex-1 text-center">{selectedCount}</div>
-            //       <div className="flex items-center">
-            //         <button onClick={() => handleItemCount(item, 'add')} className="text-lg">+</button>
-            //       </div>
-            //     </div>                       
-            //   }
-            // </div>
             <div className="relative text-center">
               <div className="relative inline-block">
                 <img
