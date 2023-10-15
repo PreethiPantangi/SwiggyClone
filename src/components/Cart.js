@@ -78,7 +78,7 @@ const Cart = () => {
                             </div>
                         </div>
                         <div 
-                            className='p-1 h-10 border border-slate-300 text-green-500 font-bold cursor-pointer'
+                            className='p-1 h-10 border border-slate-300 text-green-500 font-bold cursor-pointer max-[450px]:w-1/2'
                             onClick={handleClearCart}
                         >
                             Clear cart
