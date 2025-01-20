@@ -21,22 +21,6 @@ const About = () => {
                             height={30}
                         />
                     </a>
-                    <a href="https://linkedin.com/in/preethipantangi" target="_blank" rel="noreferrer" className="mr-3">
-                        <img
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/LinkedIn_icon_circle.svg/800px-LinkedIn_icon_circle.svg.png"
-                            alt="LinkedIn"
-                            width={30}
-                            height={30}
-                        />
-                    </a>
-                    <a href="https://pantangisaipreethi3.wixsite.com/portfolio" target="_blank" rel="noreferrer">
-                        <img
-                            src="https://cdn-icons-png.flaticon.com/512/686/686165.png"
-                            alt="Portfolio"
-                            width={30}
-                            height={30}
-                        />
-                    </a>
                 </div>
             </div>
         </div>

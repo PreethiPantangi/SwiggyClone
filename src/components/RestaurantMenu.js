@@ -15,15 +15,17 @@ const RestaurantMenu = () => {
     return <Loading text={'Fetching restaurant menu for you...'}/>
   }
 
-  const restaurantDetails = resDetails?.cards[0]?.card?.card?.info;
-  let restaurantMenuCards;
-  if(resDetails?.cards[1]?.groupedCard?.cardGroupMap?.REGULAR?.cards) {
-    restaurantMenuCards = resDetails?.cards[1]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
-  }
-  else if(resDetails?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards) {
-    restaurantMenuCards = resDetails?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
-  } else {
-    restaurantMenuCards = resDetails.cards[3].groupedCard.cardGroupMap.REGULAR.cards; 
+  let restaurantDetails = {};
+  let restaurantMenuCards = [];
+  let resCards = resDetails?.cards || []; 
+  for (let i = 0; i < resCards.length; i++) {
+    if(restaurantDetails === undefined || Object.keys(restaurantDetails).length === 0) {
+      restaurantDetails = resDetails?.cards[i]?.card?.card?.info;
+    }
+    const groupedCards = resCards[i]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+    if (groupedCards) {
+      restaurantMenuCards = restaurantMenuCards.concat(groupedCards);
+    }
   }
 
 

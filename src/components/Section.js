@@ -85,37 +85,37 @@ const Section = ({card}) => {
                 setIsLoading(true);
                 let count = JSON.parse(localStorage.getItem('resCount')) ? JSON.parse(localStorage.getItem('resCount')) : 10;
                 let latLng = JSON.parse(localStorage.getItem('latLng'));
-                const data = await fetch(UPDATE_RESTAURANTS_LIST_URL, {
+                const data = await fetch(UPDATE_RESTAURANTS_LIST_URL + "?lat=" + latLng.lat + "&lng=" + latLng.lng + '&apiV2=true', {
                     method: "POST", 
                     headers: {
                       "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({
-                        "lat": latLng?.lat ? latLng.lat : 17.385044,
-                        "lng": latLng?.lng ? latLng.lng : 78.486671,
-                        "nextOffset": "COVCELQ4KICg97fn1ojZJTCnEw==",
-                        "widgetOffset": {
-                            "NewListingView_Topical_Fullbleed": "",
-                            "NewListingView_category_bar_chicletranking_TwoRows": "",
-                            "NewListingView_category_bar_chicletranking_TwoRows_Rendition": "",
-                            "Restaurant_Group_WebView_PB_Theme": "",
-                            "Restaurant_Group_WebView_SEO_PB_Theme": "",
-                            "collectionV5RestaurantListWidget_SimRestoRelevance_food_seo": JSON.stringify(count),
-                            "inlineFacetFilter": "",
-                            "restaurantCountWidget": ""
-                        },
-                        "filters": {},
-                        "seoParams": {
-                            "seoUrl": "https://www.swiggy.com/",
-                            "pageType": "FOOD_HOMEPAGE",
-                            "apiName": "FoodHomePage"
-                        },
-                        "page_type": "DESKTOP_WEB_LISTING",
-                        "_csrf": "YH5n08SgbkUZ-zpAL-zeJwmc09fXXBG7yc5H8D_s"
-                    }), 
+                    body: JSON.stringify(
+                        {
+                            "sortAttribute": "relevance",
+                            "isFiltered": false,
+                            "queryId": "seo-data-6c1dc200-b5c9-4c80-a200-6a6f8446f4f3",
+                            "seoParams": {
+                                "apiName": "CityPage",
+                                "brandId": "",
+                                "seoUrl": "www.swiggy.com/order-online-near-me",
+                                "pageType": "NEAR_ME_PAGE",
+                                "businessLine": "FOOD"
+                            },
+                            "widgetOffset": {
+                                "NewListingView_category_bar_chicletranking_TwoRows": "",
+                                "NewListingView_category_bar_chicletranking_TwoRows_Rendition": "",
+                                "Restaurant_Group_WebView_PB_Theme": "",
+                                "Restaurant_Group_WebView_SEO_PB_Theme": "",
+                                "collectionV5RestaurantListWidget_SimRestoRelevance_food_seo": JSON.stringify(count),
+                                "inlineFacetFilter": "",
+                                "restaurantCountWidget": ""
+                            },
+                            "nextOffset": "CJY7ELQ4KID4lZTW1Zn6djDUEA=="
+                        }), 
                 });
                 const json = await data.json();
-                let restaurantsData = json.data.cards[0].card.card.gridElements.infoWithStyle.restaurants;
+                let restaurantsData = json?.data?.success?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
                 localStorage.setItem('resCount', JSON.stringify(restaurantsData.length))
                 dispatch(updateRestaurants({cardDetails: restaurantsData, isUpdate: true}));
                 isFetchCalled = false;
@@ -128,6 +128,7 @@ const Section = ({card}) => {
                   const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
           
                   if (isVisible && !isFetchCalled) {
+                    // debugger;
                     fetchRes();
                     isFetchCalled = true;
                   }

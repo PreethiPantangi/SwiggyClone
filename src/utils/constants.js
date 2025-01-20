@@ -1,6 +1,6 @@
 export const FETCH_CARDS_URL = "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?";
 
-export const CDN_URL = "https://corsproxy.io/?https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
+export const CDN_URL = "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
 
 export const LOGO_URL = "https://corsproxy.io/?https://images-platform.99static.com/A_Ax0GQuo_NHI0Y7XZHmFtGfBDY=/0x0:1000x1000/500x500/top/smart/99designs-contests-attachments/126/126252/attachment_126252018"
 
@@ -12,4 +12,6 @@ export const AUTOCOMPLETE_URL = "https://corsproxy.io/?https://www.swiggy.com/da
 
 export const ADDRESS_RECOMMEND_URL = 'https://corsproxy.io/?https://www.swiggy.com/dapi/misc/address-recommend?place_id=';
 
-export const UPDATE_RESTAURANTS_LIST_URL = 'https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/update';
+// export const UPDATE_RESTAURANTS_LIST_URL = 'https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/update';
+
+export const UPDATE_RESTAURANTS_LIST_URL = 'https://cors-anywhere.herokuapp.com/https://www.swiggy.com/api/seo/getListing';
