@@ -85,7 +85,9 @@ const Section = ({card}) => {
                 setIsLoading(true);
                 let count = JSON.parse(localStorage.getItem('resCount')) ? JSON.parse(localStorage.getItem('resCount')) : 10;
                 let latLng = JSON.parse(localStorage.getItem('latLng'));
-                const data = await fetch(UPDATE_RESTAURANTS_LIST_URL + "?lat=" + latLng.lat + "&lng=" + latLng.lng + '&apiV2=true', {
+                let latitude = latLng?.lat ? latLng.lat : 17.385044;
+                let longitude = latLng?.lng ? latLng.lng : 78.486671
+                const data = await fetch(UPDATE_RESTAURANTS_LIST_URL + "?lat=" + latitude + "&lng=" + longitude + '&apiV2=true', {
                     method: "POST", 
                     headers: {
                       "Content-Type": "application/json",
